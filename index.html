@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Arpan Kumar Shill - Portfolio</title>
+    <script id="sap-ui-bootstrap"
+        src="https://ui5.sap.com/resources/sap-ui-core.js"
+        data-sap-ui-theme="sap_horizon"
+        data-sap-ui-resourceroots='{
+            "portfolio": "./"
+        }'
+        data-sap-ui-compatVersion="edge"
+        data-sap-ui-libs="sap.m,sap.ui.core,sap.ui.layout,sap.f"
+        data-sap-ui-preload="async">
+    </script>
+    <script>
+        sap.ui.getCore().attachInit(function () {
+            new sap.ui.core.ComponentContainer({
+                name: "portfolio",
+                settings: {
+                    id: "portfolio"
+                }
+            }).placeAt("content");
+        });
+    </script>
+</head>
+<body class="sapUiBody" id="content">
+</body>
+</html>

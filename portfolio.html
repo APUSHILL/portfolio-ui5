@@ -1,0 +1,457 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Arpan Kumar Shill - Portfolio</title>
+    <script id="sap-ui-bootstrap"
+            src="https://ui5.sap.com/resources/sap-ui-core.js"
+            data-sap-ui-libs="sap.m,sap.ui.core,sap.ui.layout,sap.f,sap.ui.unified"
+            data-sap-ui-theme="sap_horizon"
+            data-sap-ui-compatVersion="edge"
+            data-sap-ui-preload="async"
+            data-sap-ui-oninit="onUI5Init">
+    </script>
+    <link rel="stylesheet" href="css/portfolio.css">
+    <style>
+        html, body { margin: 0; padding: 0; height: 100%; background: #f5f6f7; }
+
+        /* Hero */
+        .heroSection {
+            background: linear-gradient(135deg, #0070f2 0%, #0040b0 60%, #001f6b 100%);
+            padding: 80px 40px 60px;
+            text-align: center;
+            color: white;
+        }
+        .heroAvatar {
+            width: 110px; height: 110px; border-radius: 50%;
+            background: rgba(255,255,255,0.2);
+            display: flex; align-items: center; justify-content: center;
+            margin: 0 auto 20px;
+            font-size: 3rem; font-weight: 700; color: white;
+            border: 4px solid rgba(255,255,255,0.5);
+            box-shadow: 0 8px 32px rgba(0,0,0,0.2);
+        }
+        .heroName { font-size: 2.6rem; font-weight: 700; margin: 0 0 8px; letter-spacing: -0.5px; }
+        .heroRole { font-size: 1.25rem; font-weight: 400; opacity: 0.9; margin: 0 0 6px; }
+        .heroBadge { display: inline-block; background: rgba(255,255,255,0.18); border: 1px solid rgba(255,255,255,0.35); border-radius: 20px; padding: 4px 16px; font-size: 0.9rem; margin-bottom: 28px; }
+        .heroButtons { display: flex; gap: 12px; justify-content: center; flex-wrap: wrap; margin-bottom: 28px; }
+        .heroBtnPrimary {
+            background: white; color: #0070f2; border: none; padding: 12px 28px;
+            border-radius: 24px; font-size: 0.95rem; font-weight: 600; cursor: pointer;
+            box-shadow: 0 4px 16px rgba(0,0,0,0.15); transition: all 0.25s;
+        }
+        .heroBtnPrimary:hover { transform: translateY(-2px); box-shadow: 0 8px 24px rgba(0,0,0,0.2); }
+        .heroBtnOutline {
+            background: transparent; color: white; border: 2px solid rgba(255,255,255,0.7);
+            padding: 11px 28px; border-radius: 24px; font-size: 0.95rem; font-weight: 600; cursor: pointer;
+            transition: all 0.25s;
+        }
+        .heroBtnOutline:hover { background: rgba(255,255,255,0.15); transform: translateY(-2px); }
+        .heroSocials { display: flex; gap: 14px; justify-content: center; }
+        .heroSocialLink {
+            display: flex; align-items: center; gap: 6px;
+            background: rgba(255,255,255,0.15); border: 1px solid rgba(255,255,255,0.3);
+            color: white; text-decoration: none; padding: 8px 16px; border-radius: 20px;
+            font-size: 0.88rem; transition: all 0.25s;
+        }
+        .heroSocialLink:hover { background: rgba(255,255,255,0.28); transform: translateY(-2px); }
+        .heroSocialLink svg { width: 16px; height: 16px; fill: currentColor; flex-shrink: 0; }
+
+        /* Nav */
+        .stickyNav {
+            position: sticky; top: 0; z-index: 100;
+            background: white; border-bottom: 1px solid #e5e9f0;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.06);
+            display: flex; justify-content: center; flex-wrap: wrap; gap: 4px; padding: 8px 20px;
+        }
+        .navLink {
+            text-decoration: none; color: #556b8d; font-size: 0.88rem; font-weight: 500;
+            padding: 6px 14px; border-radius: 16px; transition: all 0.2s;
+        }
+        .navLink:hover { background: #e8f0fe; color: #0070f2; }
+
+        /* Sections */
+        .section { max-width: 900px; margin: 0 auto; padding: 48px 24px 0; }
+        .sectionTitle {
+            font-size: 1.5rem; font-weight: 700; color: #1a2e45; margin: 0 0 24px;
+            padding-bottom: 10px; border-bottom: 3px solid #0070f2; display: inline-block;
+        }
+
+        /* Stats bar */
+        .statsBar { display: flex; gap: 16px; flex-wrap: wrap; margin-bottom: 20px; }
+        .statCard {
+            flex: 1; min-width: 110px; background: white; border-radius: 12px;
+            padding: 20px 16px; text-align: center;
+            box-shadow: 0 2px 12px rgba(0,112,242,0.08); border: 1px solid #e8f0fe;
+            transition: all 0.25s;
+        }
+        .statCard:hover { transform: translateY(-4px); box-shadow: 0 8px 24px rgba(0,112,242,0.15); }
+        .statNum { font-size: 2rem; font-weight: 700; color: #0070f2; line-height: 1; }
+        .statLabel { font-size: 0.82rem; color: #6b7a99; margin-top: 4px; }
+
+        /* About */
+        .aboutText { background: white; border-radius: 12px; padding: 24px; box-shadow: 0 2px 12px rgba(0,0,0,0.06); line-height: 1.7; color: #354a5f; font-size: 0.97rem; margin-bottom: 16px; }
+
+        /* Timeline */
+        .timeline { position: relative; padding-left: 28px; }
+        .timeline::before { content: ''; position: absolute; left: 7px; top: 0; bottom: 0; width: 2px; background: linear-gradient(to bottom, #0070f2, #30914c); border-radius: 2px; }
+        .tlItem { position: relative; margin-bottom: 28px; }
+        .tlDot { position: absolute; left: -25px; top: 6px; width: 14px; height: 14px; border-radius: 50%; background: #0070f2; border: 3px solid white; box-shadow: 0 0 0 2px #0070f2; }
+        .tlCard { background: white; border-radius: 12px; padding: 20px 22px; box-shadow: 0 2px 12px rgba(0,0,0,0.06); border-left: 4px solid #0070f2; }
+        .tlTitle { font-size: 1rem; font-weight: 700; color: #1a2e45; margin: 0 0 4px; }
+        .tlInst { font-size: 0.92rem; color: #0070f2; font-weight: 500; margin: 0 0 6px; }
+        .tlMeta { display: flex; gap: 16px; flex-wrap: wrap; }
+        .tlDate { font-size: 0.83rem; color: #6b7a99; background: #f0f4f8; padding: 2px 10px; border-radius: 10px; }
+        .tlGrade { font-size: 0.83rem; color: #30914c; background: #edfdf3; padding: 2px 10px; border-radius: 10px; font-weight: 600; }
+
+        /* Experience */
+        .expCard { background: white; border-radius: 14px; padding: 28px; box-shadow: 0 4px 20px rgba(0,0,0,0.07); border-top: 5px solid #0070f2; }
+        .expHeader { display: flex; justify-content: space-between; align-items: flex-start; flex-wrap: wrap; gap: 8px; margin-bottom: 20px; }
+        .expTitle { font-size: 1.15rem; font-weight: 700; color: #1a2e45; margin: 0; }
+        .expCompany { font-size: 0.95rem; color: #0070f2; font-weight: 600; margin: 4px 0 0; }
+        .expDate { background: linear-gradient(135deg, #0070f2, #30914c); color: white; padding: 5px 14px; border-radius: 20px; font-size: 0.82rem; font-weight: 500; white-space: nowrap; }
+        .expList { list-style: none; padding: 0; margin: 0; }
+        .expList li { display: flex; gap: 10px; align-items: flex-start; padding: 8px 0; border-bottom: 1px solid #f0f4f8; color: #354a5f; font-size: 0.92rem; line-height: 1.6; }
+        .expList li:last-child { border-bottom: none; }
+        .expList li::before { content: '▸'; color: #0070f2; font-size: 0.8rem; margin-top: 3px; flex-shrink: 0; }
+
+        /* Projects */
+        .projectsGrid { display: grid; grid-template-columns: repeat(auto-fill, minmax(380px, 1fr)); gap: 20px; }
+        .projCard { background: white; border-radius: 14px; padding: 24px; box-shadow: 0 4px 16px rgba(0,0,0,0.07); border-top: 4px solid #0070f2; transition: all 0.25s; }
+        .projCard:hover { transform: translateY(-6px); box-shadow: 0 12px 32px rgba(0,112,242,0.14); }
+        .projTitle { font-size: 1.05rem; font-weight: 700; color: #1a2e45; margin: 0 0 4px; }
+        .projDate { font-size: 0.8rem; color: #6b7a99; margin: 0 0 12px; }
+        .projDesc { font-size: 0.9rem; color: #4a5a72; line-height: 1.65; margin-bottom: 16px; }
+        .techTags { display: flex; flex-wrap: wrap; gap: 6px; margin-bottom: 16px; }
+        .techTag { background: #e8f0fe; color: #0070f2; padding: 3px 10px; border-radius: 12px; font-size: 0.78rem; font-weight: 500; }
+        .projLink { display: inline-flex; align-items: center; gap: 6px; color: #0070f2; text-decoration: none; font-size: 0.88rem; font-weight: 600; padding: 6px 14px; border: 1.5px solid #0070f2; border-radius: 16px; transition: all 0.2s; }
+        .projLink:hover { background: #0070f2; color: white; }
+        .projLink svg { width: 15px; height: 15px; fill: currentColor; }
+
+        /* Skills */
+        .skillsGrid { display: grid; grid-template-columns: repeat(auto-fill, minmax(200px, 1fr)); gap: 16px; }
+        .skillCat { background: white; border-radius: 12px; padding: 20px; box-shadow: 0 2px 12px rgba(0,0,0,0.06); }
+        .skillCatTitle { font-size: 0.9rem; font-weight: 700; color: #1a2e45; margin: 0 0 14px; text-transform: uppercase; letter-spacing: 0.5px; border-bottom: 2px solid #e8f0fe; padding-bottom: 8px; }
+        .skillTags { display: flex; flex-wrap: wrap; gap: 6px; }
+        .skillTag { background: linear-gradient(135deg, #e8f0fe, #edf7ed); color: #1a2e45; padding: 4px 10px; border-radius: 10px; font-size: 0.82rem; font-weight: 500; border: 1px solid #d0e0f8; }
+
+        /* Certs & Achievements */
+        .twoCol { display: grid; grid-template-columns: 1fr 1fr; gap: 24px; }
+        @media (max-width: 640px) { .twoCol { grid-template-columns: 1fr; } }
+        .certCard { background: white; border-radius: 12px; padding: 18px 20px; box-shadow: 0 2px 10px rgba(0,0,0,0.06); border-left: 4px solid #0070f2; margin-bottom: 12px; }
+        .certTitle { font-size: 0.95rem; font-weight: 700; color: #1a2e45; margin: 0 0 4px; }
+        .certDesc { font-size: 0.85rem; color: #6b7a99; margin: 0; }
+        .achCard { background: white; border-radius: 12px; padding: 18px 20px; box-shadow: 0 2px 10px rgba(0,0,0,0.06); border-left: 4px solid #30914c; margin-bottom: 12px; }
+        .achTitle { font-size: 0.95rem; font-weight: 700; color: #1a2e45; margin: 0 0 4px; }
+        .achDesc { font-size: 0.85rem; color: #6b7a99; margin: 0; line-height: 1.55; }
+
+        /* Contact */
+        .contactGrid { display: grid; grid-template-columns: repeat(auto-fill, minmax(220px, 1fr)); gap: 16px; margin-bottom: 48px; }
+        .contactCard {
+            display: flex; align-items: center; gap: 14px;
+            background: white; border-radius: 14px; padding: 18px 20px;
+            box-shadow: 0 4px 16px rgba(0,0,0,0.07); text-decoration: none; color: inherit;
+            border: 1.5px solid transparent; transition: all 0.25s;
+        }
+        .contactCard:hover { border-color: #0070f2; transform: translateY(-4px); box-shadow: 0 10px 28px rgba(0,112,242,0.15); }
+        .contactIcon { width: 44px; height: 44px; border-radius: 12px; display: flex; align-items: center; justify-content: center; flex-shrink: 0; }
+        .contactIcon svg { width: 22px; height: 22px; fill: white; }
+        .contactLabel { font-size: 0.78rem; color: #6b7a99; margin: 0 0 2px; text-transform: uppercase; letter-spacing: 0.5px; }
+        .contactValue { font-size: 0.93rem; font-weight: 600; color: #1a2e45; margin: 0; }
+
+        /* Footer */
+        .footer { background: #1a2e45; color: #8fa3bc; text-align: center; padding: 24px; margin-top: 60px; font-size: 0.88rem; }
+        .footer span { color: #0070f2; font-weight: 600; }
+
+        @media (max-width: 600px) {
+            .heroName { font-size: 1.9rem; }
+            .projectsGrid { grid-template-columns: 1fr; }
+            .section { padding: 36px 16px 0; }
+        }
+    </style>
+</head>
+<body>
+
+<!-- Hero -->
+<div class="heroSection">
+    <div class="heroAvatar">A</div>
+    <h1 class="heroName">Arpan Kumar Shill</h1>
+    <p class="heroRole">Software Engineer &amp; Full Stack Developer</p>
+    <span class="heroBadge">SAP Labs Scholar · B.Tech CSE</span>
+    <div class="heroButtons">
+        <button class="heroBtnOutline" onclick="document.getElementById('contact').scrollIntoView({behavior:'smooth'})">Get In Touch</button>
+    </div>
+    <div class="heroSocials">
+        <a href="https://github.com/APUSHILL" target="_blank" class="heroSocialLink">
+            <svg viewBox="0 0 24 24"><path d="M12 0C5.37 0 0 5.37 0 12c0 5.31 3.435 9.795 8.205 11.385.6.105.825-.255.825-.57 0-.285-.015-1.23-.015-2.235-3.015.555-3.795-.735-4.035-1.41-.135-.345-.72-1.41-1.23-1.695-.42-.225-1.02-.78-.015-.795.945-.015 1.62.87 1.845 1.23 1.08 1.815 2.805 1.305 3.495.99.105-.78.42-1.305.765-1.605-2.67-.3-5.46-1.335-5.46-5.925 0-1.305.465-2.385 1.23-3.225-.12-.3-.54-1.53.12-3.18 0 0 1.005-.315 3.3 1.23.96-.27 1.98-.405 3-.405s2.04.135 3 .405c2.295-1.56 3.3-1.23 3.3-1.23.66 1.65.24 2.88.12 3.18.765.84 1.23 1.905 1.23 3.225 0 4.605-2.805 5.625-5.475 5.925.435.375.81 1.095.81 2.22 0 1.605-.015 2.895-.015 3.3 0 .315.225.69.825.57A12.02 12.02 0 0024 12c0-6.63-5.37-12-12-12z"/></svg>
+            GitHub
+        </a>
+        <a href="mailto:arpanshill2019@gmail.com" class="heroSocialLink">
+            <svg viewBox="0 0 24 24"><path d="M20 4H4c-1.1 0-2 .9-2 2v12c0 1.1.9 2 2 2h16c1.1 0 2-.9 2-2V6c0-1.1-.9-2-2-2zm0 4l-8 5-8-5V6l8 5 8-5v2z"/></svg>
+            Email
+        </a>
+        <a href="https://linkedin.com/in/arpanshill" target="_blank" class="heroSocialLink">
+            <svg viewBox="0 0 24 24"><path d="M19 0h-14c-2.761 0-5 2.239-5 5v14c0 2.761 2.239 5 5 5h14c2.762 0 5-2.239 5-5v-14c0-2.761-2.238-5-5-5zm-11 19h-3v-11h3v11zm-1.5-12.268c-.966 0-1.75-.79-1.75-1.764s.784-1.764 1.75-1.764 1.75.79 1.75 1.764-.783 1.764-1.75 1.764zm13.5 12.268h-3v-5.604c0-3.368-4-3.113-4 0v5.604h-3v-11h3v1.765c1.396-2.586 7-2.777 7 2.476v6.759z"/></svg>
+            LinkedIn
+        </a>
+    </div>
+</div>
+
+<!-- Sticky Nav -->
+<nav class="stickyNav">
+    <a href="#about"    class="navLink">About</a>
+    <a href="#education" class="navLink">Education</a>
+    <a href="#experience" class="navLink">Experience</a>
+    <a href="#projects" class="navLink">Projects</a>
+    <a href="#skills"   class="navLink">Skills</a>
+    <a href="#certs"    class="navLink">Certifications</a>
+    <a href="#contact"  class="navLink">Contact</a>
+</nav>
+
+<!-- About -->
+<section id="about" class="section">
+    <h2 class="sectionTitle">About Me</h2>
+    <div class="statsBar">
+        <div class="statCard"><div class="statNum">9.3</div><div class="statLabel">CGPA</div></div>
+        <div class="statCard"><div class="statNum">300+</div><div class="statLabel">Problems Solved</div></div>
+        <div class="statCard"><div class="statNum">2+</div><div class="statLabel">Years Experience</div></div>
+        <div class="statCard"><div class="statNum">2</div><div class="statLabel">Projects</div></div>
+    </div>
+    <div class="aboutText">
+        I am a passionate Software Engineer with expertise in full-stack development, currently working as a Scholar at SAP Labs, India. With a strong foundation in Computer Science and Engineering (CGPA 9.3) and extensive experience in Java, Python, and modern web technologies, I thrive in dynamic and challenging environments. My objective is to contribute meaningfully, continuously enhance my skills, and grow through collaboration with diverse teams.
+    </div>
+</section>
+
+<!-- Education -->
+<section id="education" class="section" style="padding-top:40px;">
+    <h2 class="sectionTitle">Education</h2>
+    <div class="timeline">
+        <div class="tlItem">
+            <div class="tlDot"></div>
+            <div class="tlCard">
+                <p class="tlTitle">B.Tech. Computer Science and Engineering</p>
+                <p class="tlInst">Narula Institute of Technology, Kolkata</p>
+                <div class="tlMeta">
+                    <span class="tlDate">2021 – 2025</span>
+                    <span class="tlGrade">CGPA: 9.3</span>
+                </div>
+            </div>
+        </div>
+        <div class="tlItem">
+            <div class="tlDot"></div>
+            <div class="tlCard">
+                <p class="tlTitle">Senior Secondary</p>
+                <p class="tlInst">Midnapore Collegiate School, WBCHSE Board</p>
+                <div class="tlMeta">
+                    <span class="tlDate">2021</span>
+                    <span class="tlGrade">91.4%</span>
+                </div>
+            </div>
+        </div>
+        <div class="tlItem">
+            <div class="tlDot" style="background:#30914c;box-shadow:0 0 0 2px #30914c;"></div>
+            <div class="tlCard" style="border-left-color:#30914c;">
+                <p class="tlTitle">Secondary</p>
+                <p class="tlInst" style="color:#30914c;">Patna Vivekananda Sikshaniketan, WBBSE Board</p>
+                <div class="tlMeta">
+                    <span class="tlDate">2019</span>
+                    <span class="tlGrade">93.7%</span>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- Experience -->
+<section id="experience" class="section" style="padding-top:40px;">
+    <h2 class="sectionTitle">Professional Experience</h2>
+    <div class="expCard">
+        <div class="expHeader">
+            <div>
+                <p class="expTitle">Scholar – First Phase Rotation</p>
+                <p class="expCompany">SAP Labs, India</p>
+            </div>
+            <span class="expDate">Sep 2025 – Apr 2026</span>
+        </div>
+        <ul class="expList">
+            <li>Designed and implemented "Login as Another User" functionality using JWT-based impersonation (iuid, ieid), enabling secure admin-level user context switching for support and testing.</li>
+            <li>Developed a reusable employee context resolution utility to dynamically determine effective user identity with fallback handling.</li>
+            <li>Implemented role-based access control logic for "MY" filter to ensure secure and personalized data access.</li>
+            <li>Developed and executed JUnit test cases across core services in Relationship Manager and Sales Target Plan modules.</li>
+            <li>Conducted manual, regression, and end-to-end testing in Staging and Pre-Production environments, ensuring feature stability and release readiness.</li>
+            <li>Automated API validation using Newman, covering Sales Unit, Territory, Account, and Volume-based target planning workflows.</li>
+            <li>Diagnosed and resolved a critical defect related to Email/Calendar count inconsistency by redesigning cache mechanisms, introducing composite keys, and correcting data aggregation logic.</li>
+            <li>Enhanced Sync Monitoring Service by improving update mechanisms and ensuring accurate tracking of sync and processing counts.</li>
+        </ul>
+    </div>
+</section>
+
+<!-- Projects -->
+<section id="projects" class="section" style="padding-top:40px;">
+    <h2 class="sectionTitle">Projects</h2>
+    <div class="projectsGrid">
+        <div class="projCard">
+            <p class="projTitle">Movie Recommendation System</p>
+            <p class="projDate">Jan – Feb 2024</p>
+            <p class="projDesc">Built a content-based movie recommendation engine using Count Vectorizer to convert text data into numerical format and cosine similarity to find movies similar to a given input. Recommends top 5 related movies based on content tags.</p>
+            <div class="techTags">
+                <span class="techTag">Python</span>
+                <span class="techTag">Machine Learning</span>
+                <span class="techTag">Count Vectorizer</span>
+                <span class="techTag">Cosine Similarity</span>
+            </div>
+            <a href="https://github.com/APUSHILL" target="_blank" class="projLink">
+                <svg viewBox="0 0 24 24"><path d="M12 0C5.37 0 0 5.37 0 12c0 5.31 3.435 9.795 8.205 11.385.6.105.825-.255.825-.57 0-.285-.015-1.23-.015-2.235-3.015.555-3.795-.735-4.035-1.41-.135-.345-.72-1.41-1.23-1.695-.42-.225-1.02-.78-.015-.795.945-.015 1.62.87 1.845 1.23 1.08 1.815 2.805 1.305 3.495.99.105-.78.42-1.305.765-1.605-2.67-.3-5.46-1.335-5.46-5.925 0-1.305.465-2.385 1.23-3.225-.12-.3-.54-1.53.12-3.18 0 0 1.005-.315 3.3 1.23.96-.27 1.98-.405 3-.405s2.04.135 3 .405c2.295-1.56 3.3-1.23 3.3-1.23.66 1.65.24 2.88.12 3.18.765.84 1.23 1.905 1.23 3.225 0 4.605-2.805 5.625-5.475 5.925.435.375.81 1.095.81 2.22 0 1.605-.015 2.895-.015 3.3 0 .315.225.69.825.57A12.02 12.02 0 0024 12c0-6.63-5.37-12-12-12z"/></svg>
+                View on GitHub
+            </a>
+        </div>
+        <div class="projCard">
+            <p class="projTitle">Detection of Phishing Websites using ML</p>
+            <p class="projDate">May – Jul 2024</p>
+            <p class="projDesc">Developed and deployed a comprehensive ML model to classify phishing vs. legitimate websites. Responsibilities included data collection, preprocessing, exploratory analysis, model training with Scikit-learn, evaluation, and real-time deployment via Streamlit.</p>
+            <div class="techTags">
+                <span class="techTag">Python</span>
+                <span class="techTag">Pandas</span>
+                <span class="techTag">NumPy</span>
+                <span class="techTag">Scikit-learn</span>
+                <span class="techTag">Streamlit</span>
+            </div>
+            <a href="https://github.com/APUSHILL" target="_blank" class="projLink">
+                <svg viewBox="0 0 24 24"><path d="M12 0C5.37 0 0 5.37 0 12c0 5.31 3.435 9.795 8.205 11.385.6.105.825-.255.825-.57 0-.285-.015-1.23-.015-2.235-3.015.555-3.795-.735-4.035-1.41-.135-.345-.72-1.41-1.23-1.695-.42-.225-1.02-.78-.015-.795.945-.015 1.62.87 1.845 1.23 1.08 1.815 2.805 1.305 3.495.99.105-.78.42-1.305.765-1.605-2.67-.3-5.46-1.335-5.46-5.925 0-1.305.465-2.385 1.23-3.225-.12-.3-.54-1.53.12-3.18 0 0 1.005-.315 3.3 1.23.96-.27 1.98-.405 3-.405s2.04.135 3 .405c2.295-1.56 3.3-1.23 3.3-1.23.66 1.65.24 2.88.12 3.18.765.84 1.23 1.905 1.23 3.225 0 4.605-2.805 5.625-5.475 5.925.435.375.81 1.095.81 2.22 0 1.605-.015 2.895-.015 3.3 0 .315.225.69.825.57A12.02 12.02 0 0024 12c0-6.63-5.37-12-12-12z"/></svg>
+                View on GitHub
+            </a>
+        </div>
+    </div>
+</section>
+
+<!-- Skills -->
+<section id="skills" class="section" style="padding-top:40px;">
+    <h2 class="sectionTitle">Skills &amp; Technologies</h2>
+    <div class="skillsGrid">
+        <div class="skillCat">
+            <p class="skillCatTitle">Technical</p>
+            <div class="skillTags">
+                <span class="skillTag">Core Java</span>
+                <span class="skillTag">Spring Boot</span>
+                <span class="skillTag">Python</span>
+                <span class="skillTag">SQL</span>
+                <span class="skillTag">Docker</span>
+                <span class="skillTag">Kubernetes</span>
+                <span class="skillTag">AWS</span>
+            </div>
+        </div>
+        <div class="skillCat">
+            <p class="skillCatTitle">Tools</p>
+            <div class="skillTags">
+                <span class="skillTag">IntelliJ IDEA</span>
+                <span class="skillTag">Git</span>
+                <span class="skillTag">Jupyter</span>
+                <span class="skillTag">Google Colab</span>
+                <span class="skillTag">Claude</span>
+                <span class="skillTag">GitHub Copilot</span>
+            </div>
+        </div>
+        <div class="skillCat">
+            <p class="skillCatTitle">Libraries</p>
+            <div class="skillTags">
+                <span class="skillTag">Pandas</span>
+                <span class="skillTag">NumPy</span>
+                <span class="skillTag">scikit-learn</span>
+                <span class="skillTag">Matplotlib</span>
+            </div>
+        </div>
+        <div class="skillCat">
+            <p class="skillCatTitle">Soft Skills</p>
+            <div class="skillTags">
+                <span class="skillTag">Problem-Solving</span>
+                <span class="skillTag">Self-learning</span>
+                <span class="skillTag">Adaptability</span>
+                <span class="skillTag">Time-Management</span>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- Certifications & Achievements -->
+<section id="certs" class="section" style="padding-top:40px;">
+    <div class="twoCol">
+        <div>
+            <h2 class="sectionTitle">Certifications</h2>
+            <div class="certCard">
+                <p class="certTitle">Core Java</p>
+                <p class="certDesc">Core Java training from Internshala</p>
+            </div>
+            <div class="certCard">
+                <p class="certTitle">Machine Learning</p>
+                <p class="certDesc">Machine Learning course from Udemy</p>
+            </div>
+            <div class="certCard">
+                <p class="certTitle">Python Programming</p>
+                <p class="certDesc">Basic Python Programming from Micro-Pro</p>
+            </div>
+        </div>
+        <div>
+            <h2 class="sectionTitle">Achievements</h2>
+            <div class="achCard">
+                <p class="achTitle">Research Publication</p>
+                <p class="achDesc">Published "Innovative Technologies For Effective Teaching Strategies in 2022"</p>
+            </div>
+            <div class="achCard">
+                <p class="achTitle">Problem Solving</p>
+                <p class="achDesc">Solved 300+ problems on GeeksforGeeks, LeetCode, and other coding platforms</p>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- Contact -->
+<section id="contact" class="section" style="padding-top:40px;">
+    <h2 class="sectionTitle">Get In Touch</h2>
+    <div class="contactGrid">
+        <a href="https://github.com/APUSHILL" target="_blank" class="contactCard">
+            <div class="contactIcon" style="background:linear-gradient(135deg,#24292e,#4a5568);">
+                <svg viewBox="0 0 24 24"><path d="M12 0C5.37 0 0 5.37 0 12c0 5.31 3.435 9.795 8.205 11.385.6.105.825-.255.825-.57 0-.285-.015-1.23-.015-2.235-3.015.555-3.795-.735-4.035-1.41-.135-.345-.72-1.41-1.23-1.695-.42-.225-1.02-.78-.015-.795.945-.015 1.62.87 1.845 1.23 1.08 1.815 2.805 1.305 3.495.99.105-.78.42-1.305.765-1.605-2.67-.3-5.46-1.335-5.46-5.925 0-1.305.465-2.385 1.23-3.225-.12-.3-.54-1.53.12-3.18 0 0 1.005-.315 3.3 1.23.96-.27 1.98-.405 3-.405s2.04.135 3 .405c2.295-1.56 3.3-1.23 3.3-1.23.66 1.65.24 2.88.12 3.18.765.84 1.23 1.905 1.23 3.225 0 4.605-2.805 5.625-5.475 5.925.435.375.81 1.095.81 2.22 0 1.605-.015 2.895-.015 3.3 0 .315.225.69.825.57A12.02 12.02 0 0024 12c0-6.63-5.37-12-12-12z"/></svg>
+            </div>
+            <div>
+                <p class="contactLabel">GitHub</p>
+                <p class="contactValue">APUSHILL</p>
+            </div>
+        </a>
+        <a href="https://linkedin.com/in/arpanshill" target="_blank" class="contactCard">
+            <div class="contactIcon" style="background:linear-gradient(135deg,#0077b5,#0099e6);">
+                <svg viewBox="0 0 24 24"><path d="M19 0h-14c-2.761 0-5 2.239-5 5v14c0 2.761 2.239 5 5 5h14c2.762 0 5-2.239 5-5v-14c0-2.761-2.238-5-5-5zm-11 19h-3v-11h3v11zm-1.5-12.268c-.966 0-1.75-.79-1.75-1.764s.784-1.764 1.75-1.764 1.75.79 1.75 1.764-.783 1.764-1.75 1.764zm13.5 12.268h-3v-5.604c0-3.368-4-3.113-4 0v5.604h-3v-11h3v1.765c1.396-2.586 7-2.777 7 2.476v6.759z"/></svg>
+            </div>
+            <div>
+                <p class="contactLabel">LinkedIn</p>
+                <p class="contactValue">arpanshill</p>
+            </div>
+        </a>
+        <a href="mailto:arpanshill2019@gmail.com" class="contactCard">
+            <div class="contactIcon" style="background:linear-gradient(135deg,#ea4335,#ff6b5b);">
+                <svg viewBox="0 0 24 24"><path d="M20 4H4c-1.1 0-2 .9-2 2v12c0 1.1.9 2 2 2h16c1.1 0 2-.9 2-2V6c0-1.1-.9-2-2-2zm0 4l-8 5-8-5V6l8 5 8-5v2z"/></svg>
+            </div>
+            <div>
+                <p class="contactLabel">Email</p>
+                <p class="contactValue">arpanshill2019@gmail.com</p>
+            </div>
+        </a>
+        <a href="tel:+916297346534" class="contactCard">
+            <div class="contactIcon" style="background:linear-gradient(135deg,#30914c,#4caf50);">
+                <svg viewBox="0 0 24 24"><path d="M6.62 10.79a15.053 15.053 0 006.59 6.59l2.2-2.2c.27-.27.67-.36 1.02-.24 1.12.37 2.33.57 3.57.57.55 0 1 .45 1 1V20c0 .55-.45 1-1 1-9.39 0-17-7.61-17-17 0-.55.45-1 1-1h3.5c.55 0 1 .45 1 1 0 1.25.2 2.45.57 3.57.11.35.03.74-.25 1.02l-2.2 2.2z"/></svg>
+            </div>
+            <div>
+                <p class="contactLabel">Phone</p>
+                <p class="contactValue">+91 6297346534</p>
+            </div>
+        </a>
+    </div>
+</section>
+
+<!-- Footer -->
+<div class="footer">
+    &copy; 2025 <span>Arpan Kumar Shill</span>. Built with SAP UI5 &amp; passion.
+</div>
+
+</body>
+</html>

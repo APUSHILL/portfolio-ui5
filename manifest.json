@@ -1,0 +1,30 @@
+{
+    "_version": "1.12.0",
+    "sap.app": {
+        "id": "portfolio",
+        "type": "application",
+        "applicationVersion": {
+            "version": "1.0.0"
+        },
+        "title": "Arpan Kumar Shill - Portfolio"
+    },
+    "sap.ui": {
+        "technology": "UI5",
+        "deviceTypes": {
+            "desktop": true,
+            "tablet": true,
+            "phone": true
+        }
+    },
+    "sap.ui5": {
+        "dependencies": {
+            "minUI5Version": "1.108.0",
+            "libs": {
+                "sap.ui.core": {},
+                "sap.m": {},
+                "sap.ui.layout": {},
+                "sap.f": {}
+            }
+        }
+    }
+}

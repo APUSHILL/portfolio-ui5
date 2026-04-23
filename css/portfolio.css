@@ -1,0 +1,221 @@
+/* Custom Portfolio Styles */
+
+/* Main Title Styling */
+.portfolioMainTitle {
+    color: #0070f2 !important;
+    font-weight: 700 !important;
+    text-shadow: 0 2px 4px rgba(0, 112, 242, 0.1);
+}
+
+.portfolioSubTitle {
+    color: #354a5f !important;
+    font-size: 1.2rem !important;
+    font-weight: 500 !important;
+}
+
+/* Action Buttons */
+.portfolioActionButton {
+    box-shadow: 0 4px 8px rgba(0, 112, 242, 0.2) !important;
+    transition: all 0.3s ease !important;
+}
+
+.portfolioActionButton:hover {
+    transform: translateY(-2px) !important;
+    box-shadow: 0 6px 16px rgba(0, 112, 242, 0.3) !important;
+}
+
+/* Contact Menu */
+.portfolioContactMenu .sapMMenuBtn {
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1) !important;
+}
+
+/* Avatar Enhancement */
+.portfolioAvatar {
+    box-shadow: 0 4px 12px rgba(0, 112, 242, 0.2) !important;
+    border: 3px solid #f0f4f8 !important;
+}
+
+/* Header Content */
+.portfolioHeaderContent {
+    background: linear-gradient(135deg, #fafbfc 0%, #f0f4f8 100%) !important;
+    padding: 2rem !important;
+    border-radius: 12px !important;
+    box-shadow: 0 4px 16px rgba(0, 0, 0, 0.1) !important;
+}
+
+.portfolioObjective {
+    font-size: 1.1rem !important;
+    line-height: 1.6 !important;
+    color: #32363a !important;
+    font-weight: 400 !important;
+}
+
+/* Contact Buttons in Header */
+.portfolioContactContainer {
+    gap: 0.5rem !important;
+}
+
+.portfolioContactButton {
+    background: rgba(0, 112, 242, 0.1) !important;
+    border: 1px solid rgba(0, 112, 242, 0.2) !important;
+    border-radius: 20px !important;
+    padding: 0.5rem 1rem !important;
+    transition: all 0.3s ease !important;
+}
+
+.portfolioContactButton:hover {
+    background: rgba(0, 112, 242, 0.2) !important;
+    transform: translateY(-2px) !important;
+    box-shadow: 0 4px 8px rgba(0, 112, 242, 0.2) !important;
+}
+
+.portfolioContactButton .sapMBtnIcon {
+    color: #0070f2 !important;
+}
+
+.portfolioContactButton .sapMBtnText {
+    color: #0070f2 !important;
+    font-weight: 500 !important;
+}
+
+/* Stats Section */
+.portfolioStatsSection .sapMPanelHdr {
+    background: linear-gradient(90deg, #0070f2, #30914c) !important;
+    color: white !important;
+    border-radius: 8px 8px 0 0 !important;
+}
+
+.portfolioStatsCard {
+    background: linear-gradient(135deg, #ffffff 0%, #f8fbff 100%) !important;
+    border: 1px solid #e1e8f0 !important;
+    border-radius: 12px !important;
+    box-shadow: 0 6px 20px rgba(0, 112, 242, 0.1) !important;
+    transition: all 0.3s ease !important;
+}
+
+.portfolioStatsCard:hover {
+    transform: translateY(-4px) !important;
+    box-shadow: 0 8px 25px rgba(0, 112, 242, 0.2) !important;
+}
+
+/* Panel Enhancements */
+.sapMPanel {
+    border-radius: 12px !important;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08) !important;
+    border: none !important;
+    overflow: hidden !important;
+}
+
+.sapMPanelHdr {
+    background: linear-gradient(135deg, #0070f2 0%, #0064d9 100%) !important;
+    color: white !important;
+    padding: 1rem 1.5rem !important;
+    font-weight: 600 !important;
+}
+
+.sapMPanelContent {
+    padding: 1.5rem !important;
+    background: #fafbfc !important;
+}
+
+/* Card Enhancements */
+.sapFCard {
+    transition: all 0.3s ease !important;
+    border-radius: 12px !important;
+    overflow: hidden !important;
+}
+
+.sapFCard:hover {
+    transform: translateY(-6px) !important;
+    box-shadow: 0 12px 30px rgba(0, 0, 0, 0.15) !important;
+}
+
+/* List Items */
+.sapMObjLItem, .sapMSLI {
+    border-radius: 8px !important;
+    margin-bottom: 0.5rem !important;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.05) !important;
+    transition: all 0.3s ease !important;
+}
+
+.sapMObjLItem:hover, .sapMSLI:hover {
+    transform: translateX(4px) !important;
+    box-shadow: 0 4px 12px rgba(0, 112, 242, 0.1) !important;
+    background: #f8fbff !important;
+}
+
+/* Token Styling */
+.sapMToken {
+    background: linear-gradient(135deg, #0070f2 0%, #30914c 100%) !important;
+    color: white !important;
+    border-radius: 20px !important;
+    font-weight: 500 !important;
+    transition: all 0.3s ease !important;
+    border: none !important;
+}
+
+.sapMToken:hover {
+    transform: scale(1.05) !important;
+    box-shadow: 0 4px 8px rgba(0, 112, 242, 0.3) !important;
+}
+
+/* Responsive Enhancements */
+@media (max-width: 768px) {
+    .portfolioHeaderContent {
+        padding: 1rem !important;
+    }
+    
+    .portfolioContactContainer {
+        flex-wrap: wrap !important;
+        justify-content: center !important;
+    }
+    
+    .portfolioContactButton {
+        margin: 0.25rem !important;
+        font-size: 0.9rem !important;
+    }
+    
+    .portfolioAvatar {
+        margin-right: 1rem !important;
+    }
+}
+
+/* Animation Enhancements */
+.sapUiContentPadding > * {
+    animation: fadeInUp 0.6s ease-out;
+}
+
+@keyframes fadeInUp {
+    from {
+        opacity: 0;
+        transform: translateY(20px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+/* Gradient Background for Main Container */
+.sapFDynamicPage {
+    background: linear-gradient(135deg, #fafbfc 0%, #f0f4f8 50%, #e8f1ff 100%) !important;
+}
+
+/* Enhanced Scrollbar */
+.sapMScrollCont::-webkit-scrollbar {
+    width: 8px;
+}
+
+.sapMScrollCont::-webkit-scrollbar-track {
+    background: #f1f1f1;
+    border-radius: 4px;
+}
+
+.sapMScrollCont::-webkit-scrollbar-thumb {
+    background: linear-gradient(135deg, #0070f2, #30914c);
+    border-radius: 4px;
+}
+
+.sapMScrollCont::-webkit-scrollbar-thumb:hover {
+    background: linear-gradient(135deg, #0064d9, #2a8245);
+}
